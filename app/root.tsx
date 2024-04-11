@@ -32,9 +32,9 @@ export default function App() {
             </div>
             <div className="w-1/3 flex justify-end"></div>
           </div>
-          {/* <div className="flex-grow-min-h-0 h-full"> */}
-            {/* <Outlet /> */}
-          {/* </div> */}
+          <div className="flex-grow-min-h-0 h-full">
+            <Outlet />
+          </div>
         </div>
       </body>
     </html>
