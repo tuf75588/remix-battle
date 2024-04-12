@@ -6,9 +6,15 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-
+import getRepoData from './routes/utils';
 import './styles.css';
 import NavList from './components/navList';
+
+export async function loader() {
+  const repo_data = await getRepoData();
+  console.log(repo_data);
+  return {}
+}
 
 export default function App() {
   return (
