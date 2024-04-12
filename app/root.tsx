@@ -8,6 +8,7 @@ import {
 } from '@remix-run/react';
 
 import './styles.css';
+import NavList from './components/navList';
 
 export default function App() {
   return (
@@ -28,18 +29,19 @@ export default function App() {
               <div className="text-slate-500">a Remix Demo</div>
             </Link>
             <div className="flex items-center gap-6">
-              <p className="text-white">link one</p>
-              <p className="text-white">link two</p>
-              <p className="text-white">link three</p>
+              <Link to="/battle" className="text-white underline">
+                Battle
+              </Link>
             </div>
             <div className="w-1/3 flex justify-end"></div>
           </div>
+          <NavList />
           <div className="flex-grow-min-h-0 h-full">
             <Outlet />
           </div>
         </div>
         <ScrollRestoration />
-    
+
         <Scripts />
       </body>
     </html>
