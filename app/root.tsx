@@ -22,13 +22,15 @@ export default function App() {
         <div className="h-full flex flex-col min-h-0">
           <div className="bg-slate-900 border-b border-slate-800 flex items-center justify-between py-4 px-8 box-border">
             <Link to="/home" className="block leading-3 w-1/3">
-              <div className="font-black text-2xl text-white">GitHub Battle</div>
+              <div className="font-black text-2xl text-white">
+                GitHub Battle
+              </div>
               <div className="text-slate-500">a Remix Demo</div>
             </Link>
             <div className="flex items-center gap-6">
-              <p className='text-white'>link one</p>
-              <p className='text-white'>link two</p>
-              <p className='text-white'>link three</p>
+              <p className="text-white">link one</p>
+              <p className="text-white">link two</p>
+              <p className="text-white">link three</p>
             </div>
             <div className="w-1/3 flex justify-end"></div>
           </div>
@@ -36,6 +38,9 @@ export default function App() {
             <Outlet />
           </div>
         </div>
+        <ScrollRestoration />
+    
+        <Scripts />
       </body>
     </html>
   );
