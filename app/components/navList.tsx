@@ -1,4 +1,4 @@
-import { Link } from '@remix-run/react';
+import { Link, NavLink } from '@remix-run/react';
 
 const navList: string[] = [
   'All',
@@ -14,8 +14,19 @@ export default function NavList() {
     <>
       <ul className="flex mx-auto">
         {navList.map((item) => (
-          <li className="m-2 cursor-pointer active:bg-blue-600" key={item}>
-            <Link to={`/${item}`}>{item}</Link>
+          <li className="m-2 cursor-pointer" key={item}>
+            <NavLink
+              to={`/repos/${item.toLocaleLowerCase()}`}
+              className={({ isActive, isPending }) => {
+                console.log(isActive);
+                return isActive
+                  ? 'text-slate-900 font-bold'
+                  : isPending
+                    ? 'pending'
+                    : '';
+              }}>
+              {item}
+            </NavLink>
           </li>
         ))}
       </ul>
