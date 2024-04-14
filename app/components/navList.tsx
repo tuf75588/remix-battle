@@ -1,3 +1,5 @@
+import { Link } from '@remix-run/react';
+
 const navList: string[] = [
   'All',
   'JavaScript',
@@ -12,7 +14,9 @@ export default function NavList() {
     <>
       <ul className="flex mx-auto">
         {navList.map((item) => (
-          <li className="m-2" key={item}>{item}</li>
+          <li className="m-2 cursor-pointer active:bg-blue-600" key={item}>
+            <Link to={`/${item}`}>{item}</Link>
+          </li>
         ))}
       </ul>
     </>
