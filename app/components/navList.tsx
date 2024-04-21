@@ -18,7 +18,6 @@ export default function NavList() {
             <NavLink
               to={`/repos/${item.toLocaleLowerCase()}`}
               className={({ isActive, isPending }) => {
-                console.log(isActive);
                 return isActive
                   ? 'text-slate-900 font-bold'
                   : isPending

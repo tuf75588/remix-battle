@@ -6,15 +6,15 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
+import {LoaderFunctionArgs, json} from '@remix-run/node';
 import getPopularRepos from './routes/utils';
 import './styles.css';
 import NavList from './components/navList';
 
-export async function loader() {
+export async function loader({ params }: LoaderFunctionArgs) {
   // we'll fetch repo data here
-  const repo_data = await getPopularRepos('JavaScript');
-  console.log(repo_data.data);
-  return {}
+  const repo_data = await getPopularRepos();
+  return json({ repo_data });
 }
 
 export default function App() {
