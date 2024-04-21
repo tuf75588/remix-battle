@@ -12,8 +12,8 @@ import NavList from './components/navList';
 
 export async function loader() {
   // we'll fetch repo data here
-  const repo_data = await getRepoData();
-  console.log(repo_data);
+  const repo_data = await getRepoData('JavaScript');
+  console.log(repo_data.data);
   return {}
 }
 

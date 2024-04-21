@@ -1,7 +1,7 @@
 import { Link, NavLink } from '@remix-run/react';
 
 const navList: string[] = [
-  'Popular',
+  'All',
   'JavaScript',
   'Python',
   'Java',

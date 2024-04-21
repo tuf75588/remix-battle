@@ -5,8 +5,8 @@ const octokit = new Octokit({
 });
 
 
-export default async function getRepoData() {
-  const request = await octokit.request('GET /search/repositories?q=jquery+in%3Aname&type=Repositories', {
+export default async function getRepoData(language) {
+  const request = await octokit.request(`GET https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`, {
     headers: {
       'X-GitHub-Api-Version': '2022-11-28'
     }
