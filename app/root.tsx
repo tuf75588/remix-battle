@@ -6,13 +6,13 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import getRepoData from './routes/utils';
+import getPopularRepos from './routes/utils';
 import './styles.css';
 import NavList from './components/navList';
 
 export async function loader() {
   // we'll fetch repo data here
-  const repo_data = await getRepoData('JavaScript');
+  const repo_data = await getPopularRepos('JavaScript');
   console.log(repo_data.data);
   return {}
 }
