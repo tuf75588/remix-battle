@@ -6,12 +6,20 @@ import invariant from 'tiny-invariant';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.repoType, 'Invalid repo type');
-  const item_selected = await getPopularRepos(params.repoType);
+  const selectedLanguage = await getPopularRepos(params.repoType);
 
-  return {};
+  return selectedLanguage;
 };
 
 export default function RepoType() {
-
-  return <div className="mx-auto text-center">repo page</div>;
+  const selected_lang = useLoaderData<typeof loader>();
+  return (
+    <div className="mx-auto text-center">
+      {selected_lang
+        ? selected_lang.map((item: { name: string, id:string }) => {
+           return <p key={item.id}>{item.name}</p>;
+          })
+        : ''}
+    </div>
+  );
 }
