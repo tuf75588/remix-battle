@@ -6,11 +6,12 @@ import invariant from 'tiny-invariant';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.repoType, 'Invalid repo type');
-  const item_selected = itemSelected(params.repoType);
-  return { item_selected };
+  const item_selected = await getPopularRepos(params.repoType);
+
+  return {};
 };
 
 export default function RepoType() {
-  const { item_selected } = useLoaderData<typeof loader>();
-  return <div className="mx-auto text-center">repo page! {item_selected}</div>;
+
+  return <div className="mx-auto text-center">repo page</div>;
 }

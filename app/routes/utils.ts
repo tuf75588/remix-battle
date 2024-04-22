@@ -1,21 +1,13 @@
-import { Octokit } from '@octokit/rest';
-
-const octokit = new Octokit({
-  auth: process.env.GITHUB_SECRET,
-});
-
-export default async function getPopularRepos() {
-  const request = await octokit.request(
-    `GET https://api.github.com/search/repositories?q=stars:>1+language:all&sort=stars&order=desc&type=Repositories`,
-    {
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-    }
+export default async function getPopularRepos(language: string) {
+  const endpoint = encodeURI(
+    `https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`
   );
-  return request.data;
-}
 
-export function itemSelected(lang: string) {
-  return lang;
+  const request = await fetch(endpoint, {
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+    },
+  });
+  const response = await request.json();
+  return response.items;
 }

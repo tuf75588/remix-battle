@@ -23,7 +23,8 @@ export default function NavList() {
                   : isPending
                     ? 'pending'
                     : '';
-              }}>
+              }}
+            >
               {item}
             </NavLink>
           </li>
