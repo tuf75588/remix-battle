@@ -1,5 +1,5 @@
 import type { MetaFunction } from '@remix-run/node';
-import { json, useLoaderData } from 'react-router';
+
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,9 +8,11 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const loader = async () => {
+  return {}
+}
 
 export default function Index() {
-
   return (
     <div>
       <div className="text-center">welcome!</div>

@@ -1,13 +1,12 @@
-export default async function getPopularRepos(language: string) {
-  const endpoint = encodeURI(
-    `https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`
-  );
+import { Octokit } from 'octokit';
 
-  const request = await fetch(endpoint, {
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+export async function searchRepos(language: string) {
+  const url = `https://api.github.com/search/repositories?q=stars%3A>%3D500+language%3A${language}&type=Repositories`;
+  const request = await octokit.request(`GET ${url}`, {
     headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      'X-GitHub-Api-Version': '2022-11-28',
     },
   });
-  const response = await request.json();
-  return response.items;
+  return request.url;
 }
