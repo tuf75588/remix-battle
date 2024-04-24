@@ -6,16 +6,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import { LoaderFunctionArgs, json } from '@remix-run/node';
-import getPopularRepos, { searchRepos } from './routes/utils';
 import './styles.css';
 import NavList from './components/navList';
 
-export async function loader() {
-  const q = await searchRepos('rust');
-  console.log(q);
-  return {};
-}
 
 export default function App() {
   return (

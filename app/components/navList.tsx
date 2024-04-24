@@ -1,4 +1,4 @@
-import { Link, NavLink } from '@remix-run/react';
+import { NavLink } from '@remix-run/react';
 
 const navList: string[] = [
   'All',
@@ -9,7 +9,7 @@ const navList: string[] = [
   'CSS',
 ];
 
-export default function NavList() {
+export default function NavList(): JSX.Element {
   return (
     <>
       <ul className="flex mx-auto">
@@ -24,6 +24,7 @@ export default function NavList() {
                     ? 'pending'
                     : '';
               }}
+              prefetch="intent"
             >
               {item}
             </NavLink>
