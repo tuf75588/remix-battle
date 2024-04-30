@@ -1,24 +1,32 @@
-import { LoaderFunctionArgs, json } from '@remix-run/node';
+import { LoaderFunctionArgs, defer, json } from '@remix-run/node';
 import { searchRepos } from './utils';
 import invariant from 'tiny-invariant';
-import { useLoaderData } from '@remix-run/react';
+import { Await, useLoaderData } from '@remix-run/react';
+import { Suspense } from 'react';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   invariant(params.repoType, 'Invalid repo type');
-  const q = await searchRepos(params.repoType);
-  return json(q);
+  return defer({
+    data: searchRepos(params.repoType).then((res) => res),
+  });
 }
 
 export default function RepoType() {
-  const selected_lang = useLoaderData<typeof loader>();
-  console.log(selected_lang);
+  const { data } = useLoaderData<typeof loader>();
+  console.log('loading');
   return (
     <div className="flex flex-wrap justify-center">
-      {selected_lang
-        ? selected_lang.map((item: { name: string; id: string }) => (
-            <p key={item.id}>{item.name}</p>
-          ))
-        : ''}
+      <Suspense fallback={<div>loading</div>}>
+        <Await resolve={data}>
+          {(data) =>
+            data.map(
+              (item: { id: string; name: string; description: string }) => (
+                <p key={item.id}>{item.description}</p>
+              )
+            )
+          }
+        </Await>
+      </Suspense>
     </div>
   );
 }
