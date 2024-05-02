@@ -11,7 +11,6 @@ import './styles.css';
 import NavList from './components/navList';
 
 export default function App() {
-  const navigation = useNavigation();
   return (
     <html lang="en">
       <head>
