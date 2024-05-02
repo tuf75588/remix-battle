@@ -1,7 +1,8 @@
-import { LoaderFunctionArgs, defer, json } from '@remix-run/node';
+import { LoaderFunctionArgs, json } from '@remix-run/node';
 import { searchRepos } from './utils';
 import invariant from 'tiny-invariant';
 import { useLoaderData, useNavigation } from '@remix-run/react';
+import RepoCard from '~/components/repo-card';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   invariant(params.repoType, 'Invalid repo type');
@@ -15,7 +16,7 @@ export default function RepoType() {
   const data = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   return (
-    <div className="flex flex-wrap items-center justify-center">
+    <div className="flex flex-wrap items-center justify-around">
       {navigation.state !== 'idle' ? (
         <div>Loading...</div>
       ) : (
@@ -23,19 +24,24 @@ export default function RepoType() {
           (item: {
             id: string;
             name: string;
-            owner: { avatar_url: string };
-          }) => (
-            <div
-              className="text-center flex flex-col m-3 bg-coolGray-300 p-8 max-w-lg w-[400px]"
+            forks: string;
+            url: string;
+            open_issues: string;
+            stargazers_count: number;
+            owner: { avatar_url: string; login: string };
+          }, index: number) => (
+            <RepoCard
+              rank={index + 1}
+              name={item.name}
               key={item.id}
-            >
-              <p className="my-2">{item.name}</p>
-              <img
-                src={item.owner.avatar_url}
-                alt={item.id}
-                className="h-[50px] w-[50px] mx-auto"
-              />
-            </div>
+              display_name={item.owner.login}
+              id={item.id}
+              avatar_url={item.owner.avatar_url}
+              forks={item.forks}
+              repoLink={item.url}
+              open_issues={item.open_issues}
+              stars={item.stargazers_count}
+            />
           )
         )
       )}

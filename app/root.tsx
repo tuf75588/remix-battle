@@ -36,7 +36,7 @@ export default function App() {
             <div className="w-1/3 flex justify-end"></div>
           </div>
           <NavList />
-          <div className="flex-grow-min-h-0 h-full">
+          <div className="flex-grow-min-h-0 h-full container mx-auto p-[50px]">
             <Outlet />
           </div>
         </div>
