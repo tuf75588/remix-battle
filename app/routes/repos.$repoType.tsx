@@ -25,7 +25,7 @@ export default function RepoType() {
             id: string;
             name: string;
             forks: string;
-            url: string;
+            html_url: string;
             open_issues: string;
             stargazers_count: number;
             owner: { avatar_url: string; login: string };
@@ -38,7 +38,7 @@ export default function RepoType() {
               id={item.id}
               avatar_url={item.owner.avatar_url}
               forks={item.forks}
-              repoLink={item.url}
+              repoLink={item.html_url}
               open_issues={item.open_issues}
               stars={item.stargazers_count}
             />
