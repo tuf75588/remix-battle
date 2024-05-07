@@ -11,6 +11,7 @@ import './styles.css';
 import NavList from './components/navList';
 
 export default function App() {
+  const navigation = useNavigation();
   return (
     <html lang="en">
       <head>
@@ -37,7 +38,13 @@ export default function App() {
           </div>
           <NavList />
           <div className="flex-grow-min-h-0 h-full container mx-auto p-[50px]">
-            <Outlet />
+            {navigation.state !== 'idle' ? (
+              <div className="mx-auto text-center font-bold text-red-900">
+                Loading...
+              </div>
+            ) : (
+              <Outlet />
+            )}
           </div>
         </div>
         <ScrollRestoration />

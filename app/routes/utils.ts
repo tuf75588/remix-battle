@@ -36,7 +36,8 @@ export async function getProfile(username: string) {
   return request.data;
 }
 
-export async function getUserData(player: string) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getUserData(player: any) {
   return Promise.all([getProfile(player), getRepos(player)]).then(
     ([profile, repos]) => ({
       profile,

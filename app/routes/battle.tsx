@@ -1,15 +1,28 @@
 import { ActionFunctionArgs, json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
-import { getProfile, getRepos, getUserData } from './utils';
-import PlayerInput from '~/components/player-input';
+import { useLoaderData, useActionData } from '@remix-run/react';
+import { getRepos, getUserData } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//
 
-export const loader = async () => {
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const { _action, ...values } = Object.fromEntries(formData);
+  if (_action === 'playerOne') {
+    let p1 = await getUserData(values.playerOne);
+    return p1;
+  }
+  if (_action === 'playerTwo') {
+    let p2 = await getUserData(values.playerTwo);
+    return p2;
+  }
   return {};
 };
 
+
+
 export default function Battle() {
+  const data = useActionData<typeof action>();
   return (
     <div>
       <h1 className="text-4xl text-center font-normal">Instructions</h1>
@@ -20,8 +33,35 @@ export default function Battle() {
       </div>
 
       <div className="flex justify-around mt-[50px]">
-        <PlayerInput username="tuf75588" />
-        <PlayerInput username="quincylarson" />
+        <form method="post">
+          <label htmlFor="playerOne">Player One</label>
+          <div className="flex">
+            <input type="text" name="playerOne" className="flex-1" />
+            <button
+              className="bg-[rebeccapurple] text-white p-2"
+              type="submit"
+              name="_action"
+              value="playerOne"
+            >
+              Submit
+            </button>
+            <input type="hidden" value="playerOne" />
+          </div>
+        </form>
+        <form method="post">
+          <label htmlFor="playerTwo">Player Two</label>
+          <div className="flex">
+            <input type="text" name="playerTwo" className="flex-1" />
+            <button
+              className="bg-[rebeccapurple] text-white flex-1 p-2"
+              type="submit"
+              name="_action"
+              value="playerTwo"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
