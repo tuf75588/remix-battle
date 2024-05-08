@@ -37,11 +37,12 @@ export async function getProfile(username: string) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function getUserData(player: any) {
+export async function getUserData(player: any, position: number) {
   return Promise.all([getProfile(player), getRepos(player)]).then(
     ([profile, repos]) => ({
       profile,
       score: calculateScore(profile.followers, repos),
+      position
     })
   );
 }
