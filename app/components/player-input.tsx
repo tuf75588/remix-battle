@@ -1,18 +1,32 @@
-export default function PlayerInput({ username }: { username: string }) {
+import { useFetcher } from '@remix-run/react';
+import React, { useState } from 'react';
+
+export default function PlayerInput(props: { position: number }) {
+  const fetcher = useFetcher();
+  const [username, setUsername] = useState('');
+  let handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log('running handlesubmit');
+  };
   return (
-    <form method="post">
-      <label htmlFor={username}>Player Two</label>
-      <div className="flex">
-        <input type="text" name="playerTwo" id="playerTwo" className="flex-1" />
+    <div>
+      <fetcher.Form method="post" onSubmit={handleSubmit}>
+        <label className="mr-2" htmlFor="playerOne">
+          Player {props.position}{' '}
+        </label>
+        <input
+          type="text"
+          className="p-2 rounded"
+          placeholder="player one"
+          onChange={(e) => setUsername(e.currentTarget.value)}
+        />
         <button
-          className="bg-[rebeccapurple] text-white flex-1 p-2"
           type="submit"
-          name="_action"
-          value="playerTwo"
+          className="ml-3 bg-slate-900 text-slate-100 p-2 rounded"
         >
           Submit
         </button>
-      </div>
-    </form>
+      </fetcher.Form>
+    </div>
   );
 }
